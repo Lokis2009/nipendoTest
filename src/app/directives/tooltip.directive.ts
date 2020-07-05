@@ -67,8 +67,12 @@ export class TooltipDirective {
     let top, position, horizontalOffset;
     if ((hostPos.top - tooltipPos.height - this.offset) > 0) {
       top = hostPos.top - tooltipPos.height - this.offset;
+      this.renderer.addClass(this.tooltip, 'tooltip-top');
+      this.renderer.removeClass(this.tooltip, 'tooltip-bottom');
     } else {
       top = hostPos.bottom + this.offset;
+      this.renderer.removeClass(this.tooltip, 'tooltip-top');
+      this.renderer.addClass(this.tooltip, 'tooltip-bottom');
     }
     if (hostPos.left - tooltipPos.width / 2 > 0 && hostPos.right - tooltipPos.width / 2 > 0) {
       position = 'left';

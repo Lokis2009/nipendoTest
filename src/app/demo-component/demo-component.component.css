@@ -1,0 +1,15 @@
+.flex-container {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.panel {
+  height: 150%;
+  width: 20%;
+  padding: 1em;
+  background-color: beige;
+  border: 1px lightblue;
+}

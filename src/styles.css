@@ -17,21 +17,22 @@ body {
   position: absolute;
 }
 
-.flex-container {
-  height: 100%;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  /*align-items: center;*/
-  justify-content: center;
+.tooltip:after {
+  content: '';
+  position: absolute;
+  left: calc(50% - 4px);
 }
 
-.panel {
-  height: 150%;
-  width: 20%;
-  padding: 1em;
-  background-color: beige;
-  border: 1px lightblue;
+.tooltip-top:after {
+  bottom: -16px;
+  border: 8px solid transparent;
+  border-top: 8px solid lightgray;
+}
+
+.tooltip-bottom:after {
+  top: -16px;
+  border: 8px solid transparent;
+  border-bottom: 8px solid lightgray;
 }
 
 .btn {
@@ -54,6 +55,7 @@ body {
   position: relative;
   top: 1px;
 }
+
 .btn:focus {
   outline: #a29797 auto 1px;
 }
