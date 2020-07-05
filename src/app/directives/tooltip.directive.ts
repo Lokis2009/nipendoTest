@@ -1,25 +1,17 @@
-import {Directive, ElementRef, Renderer2, Input, HostListener, OnInit} from '@angular/core';
+import {Directive, ElementRef, Renderer2, Input, HostListener} from '@angular/core';
 
 @Directive({
   selector: '[appTooltip]'
 })
-export class TooltipDirective implements OnInit {
+export class TooltipDirective {
 
-  @Input('tooltipText') tooltipText: string;
+  @Input('appTooltip') tooltipText: string;
   tooltip: HTMLElement;
-  parent;
-  reference;
-  placement: string;
+  offset  = 8;
 
   constructor(private elementRef: ElementRef,
               private renderer: Renderer2
   ) {
-  }
-
-  ngOnInit() {
-    this.parent = this.elementRef.nativeElement.parentNode;
-    this.reference = this.elementRef.nativeElement;
-    this.placement = 'top';
   }
 
   @HostListener('click') onclick() {
@@ -42,10 +34,10 @@ export class TooltipDirective implements OnInit {
     }
   }
 
-  @HostListener('window:scroll', ['$event']) onScroll(event) {
-   if (this.tooltip) {
-     this.setPosition();
-   }
+  @HostListener('window:scroll', ['$event']) onScroll() {
+    if (this.tooltip) {
+      this.setPosition();
+    }
   }
 
   createTooltip() {
@@ -72,24 +64,24 @@ export class TooltipDirective implements OnInit {
     const hostPos = this.elementRef.nativeElement.getBoundingClientRect();
     const tooltipPos = this.tooltip.getBoundingClientRect();
     const scrollPos = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-    let top, position, offsetValue;
-    if ((hostPos.top - tooltipPos.height) > 0) {
-      top = hostPos.top - tooltipPos.height;
+    let top, position, horizontalOffset;
+    if ((hostPos.top - tooltipPos.height - this.offset) > 0) {
+      top = hostPos.top - tooltipPos.height - this.offset;
     } else {
-      top = hostPos.bottom;
+      top = hostPos.bottom + this.offset;
     }
     if (hostPos.left - tooltipPos.width / 2 > 0 && hostPos.right - tooltipPos.width / 2 > 0) {
       position = 'left';
-      offsetValue = hostPos.left + (hostPos.width - tooltipPos.width) / 2;
+      horizontalOffset = hostPos.left + (hostPos.width - tooltipPos.width) / 2;
     } else if (hostPos.left - tooltipPos.width / 2 > 0) {
       position = 'right';
-      offsetValue = 10;
+      horizontalOffset = this.offset;
     } else {
       position = 'left';
-      offsetValue = 10;
+      horizontalOffset = this.offset;
     }
     this.renderer.setStyle(this.tooltip, 'top', `${top + scrollPos}px`);
-    this.renderer.setStyle(this.tooltip, position, `${offsetValue}px`);
+    this.renderer.setStyle(this.tooltip, position, `${horizontalOffset}px`);
   }
 
 }
