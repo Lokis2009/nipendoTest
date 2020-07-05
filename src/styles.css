@@ -1,1 +1,36 @@
 /* You can add global styles to this file, and also import other style files */
+html, body {
+  height: 100%;
+}
+body {
+  margin: 0;
+}
+.tooltip{
+  background-color: lightgray;
+  width: 40%;
+  max-width: fit-content;
+  padding: 10px;
+  border-radius: 4px;
+  border: 2px gray;
+  position: absolute;
+}
+
+.flex-container {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.row {
+  width: 30%;
+  height: 300px;
+  overflow: auto;
+  background-color: beige;
+}
+.flex-item {
+  padding: 1em;
+  text-align: center;
+}
+
